@@ -8,6 +8,10 @@ import grafo.dirigido.abstrato.IterableCollection;
 import grafo.dirigido.abstrato.Iterator;
 import grafo.dirigido.bfs.BfsIterableCollection;
 import grafo.dirigido.bfs.BfsIterator;
+import grafo.dirigido.bfs.BfsService;
+import grafo.dirigido.dfs.DfsIterableCollection;
+import grafo.dirigido.dfs.DfsIterator;
+import grafo.dirigido.dfs.DfsService;
 import model.Aluno;
 
 public class MainGrafo2 {
@@ -83,18 +87,36 @@ public class MainGrafo2 {
 			 System.out.println(g.getVertices());
 			 BfsIterableCollection<String> collection = new BfsIterableCollection<String>(g.getVertices(), g.getArestas());
 			 BfsIterator<String> iterador = collection.createIterator();
+			// BfsService<String> service = new BfsService<String>(collection, iterador);
 			 // g.BFS("6");
 			 // g.BFSDistance("5");
-			 //iterador.BFS("6");
-			 while(iterador.hasNext()){
+			 //service.percorrerBFS("6");
+			 /*while(iterador.hasNext()){
 				 Vertice<String> proximo = iterador.getNext();
 				 System.out.println(proximo.getCarga());
-				 iterador.BFS(proximo.getCarga());
-			 }
+			 }*/
+			 DfsIterableCollection<String> collectionDFS = new DfsIterableCollection<String>(g.getVertices(), g.getArestas());
+			 DfsIterator<String> iteradorDFS = collectionDFS.createIterator();
 			 System.out.println();
-			 // g.DFS("6");
-			 iterador.reset();
-			 System.out.println("Grafo foi esvaziado: " + iterador);
+			 DfsService<String> service = new DfsService<String>(collectionDFS, iteradorDFS);
+			 service.DFS("6");
+			/*
+			 Grafo<String> g = new Grafo<String>();
+			 g.addVertice("1");
+			 g.addVertice("2");
+			 g.addVertice("3");
+			 g.addVertice("4");
+			 g.addVertice("5");
+			 g.addVertice("6");
+			 g.addAresta("6", "4", 1);
+			 g.addAresta("4", "5", 1);
+			 g.addAresta("4", "3", 1);
+			 g.addAresta("5", "2", 1);
+			 g.addAresta("5", "1", 1);
+			 g.addAresta("1", "2", 1);
+			 g.DFS("6");*/
+			 // iterador.reset();
+			 // System.out.println("Grafo foi esvaziado: " + iterador);
 
 			 // g.clear();
 			 			 

@@ -7,7 +7,7 @@ import grafo.dirigido.Vertice;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class GrafoIterator<T> implements Iterator {
+public abstract class GrafoIterator<T> {
 
 public static final int INFINITY = 99999;
 
@@ -17,7 +17,7 @@ public static final int INFINITY = 99999;
 public List<Vertice<T>> vertices;
 public List<Aresta<T>> arestas;
 
-private int posicaoAtual;
+public int posicaoAtual;
 
 public GrafoIterator(){
         this.vertices = new ArrayList<Vertice<T>>();
@@ -203,11 +203,11 @@ public boolean isEmpty() {
 /**
  * Esvazia o grafo.
  */
-
+/*
 public void reset() {
         vertices.clear();
         arestas.clear();
-        }
+        }*/
 
 public String toString() {
         String r = "";
@@ -250,14 +250,15 @@ public String toString() {
                 }
         }
 
-        @Override
+        /*@Override
+        public abstract boolean hasNext();*/
+
+        /*@Override
+        public abstract Vertice<T> getNext();*/
+        /*@Override
         public boolean hasNext() {
                 return this.posicaoAtual < this.vertices.size();
         }
-        @Override
-        public Vertice<T> getNext(){
-                Vertice<T> obj = this.vertices.get(this.posicaoAtual);
-                posicaoAtual++;
-                return obj;
-        };
+
+        public abstract Vertice<T> getNext();*/
 }

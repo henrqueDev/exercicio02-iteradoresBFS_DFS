@@ -4,13 +4,14 @@ import grafo.dirigido.Aresta;
 import grafo.dirigido.abstrato.GrafoIterator;
 import grafo.dirigido.VertexState;
 import grafo.dirigido.Vertice;
+import grafo.dirigido.abstrato.Iterator;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
-public class BfsIterator<T> extends GrafoIterator {
+public class BfsIterator<T> extends GrafoIterator implements Iterator {
 
     /**
      * Implementacao do algoritmo BFS (Busca em Profundidade)
@@ -20,6 +21,7 @@ public class BfsIterator<T> extends GrafoIterator {
      */
 
 
+    public Queue<Vertice<T>> queue;
 
     public BfsIterator(){
         super();
@@ -27,6 +29,7 @@ public class BfsIterator<T> extends GrafoIterator {
 
     public BfsIterator(List <Vertice<T>> vertices , List <Aresta<T>> arestas){
         super(vertices, arestas);
+        this.queue = new LinkedList<Vertice<T>>();
     }
 
     public void BFSDistance( T source ){
@@ -51,6 +54,7 @@ public class BfsIterator<T> extends GrafoIterator {
                 @SuppressWarnings("unchecked")
                 Vertice<T> w = (Vertice<T>) arco.getDestino();
 
+                //hasNext()
                 if( w.getStatus() == VertexState.Unvisited ) {
                     w.setStatus(VertexState.Visited);
                     q.add(w);
@@ -67,40 +71,59 @@ public class BfsIterator<T> extends GrafoIterator {
 
     }
 
-    public void BFS(T source) {
-        Queue<Vertice<T>> q = new LinkedList<Vertice<T>>();
+    @Override
+     public Vertice<T> getNext(){
+        // Vertice<T> u = q.remove();
+        return this.queue.remove();
+    }
+    /*public void BFS(T source) {
         List<Vertice<T>> uAdjacentes = null;
 
-        Vertice<T> v = getVertice(source);
+        Vertice<T> v = this.getVertice(source);
 
-        if (!exists(v))
+        if (!this.exists(v))
             return;
         // Marcando todos os n�s como NAO-VISITADOS
         this.setAllVerticesUnvisited();
 
 
         v.setStatus(VertexState.Visited);
-        q.add(v);
-        showMarked();
+        this.queue.add(v);
+        this.showMarked();
 
-        while (!q.isEmpty()) {
-            Vertice<T> u = q.remove();
-            System.out.print("\t" + q.toString() + "\n");
+        while (this.hasNext()) {
+            Vertice<T> u = this.getNext();
+            System.out.print("\t" + this.queue.toString() + "\n");
 
-            uAdjacentes = incidentes(u);
+            uAdjacentes = this.incidentes(u);
 
             for (Vertice<T> w : uAdjacentes) {
 
                 if (w.getStatus() == VertexState.Unvisited) {
                     w.setStatus(VertexState.Visited);
-                    q.add(w);
+                    this.queue.add(w);
                 }
-                showMarked();
-                System.out.print("\t" + q.toString() + "\n");
+                this.showMarked();
+                System.out.print("\t" + this.queue.toString() + "\n");
             }
-
+            this.posicaoAtual++;
             u.setStatus(VertexState.Finished);
         }
 
+    }*/
+
+    @Override
+    public void reset() {
+        this.vertices.clear();
+        this.arestas.clear();
+        this.posicaoAtual = 0;
+        this.queue = new LinkedList<Vertice<T>>();
     }
+
+    @Override
+    public boolean hasNext() {
+        return this.posicaoAtual < this.vertices.size();
+    }
+
+
 }

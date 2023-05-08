@@ -1,7 +1,9 @@
 package grafo.dirigido.abstrato;
 
-public interface Iterator {
+import grafo.dirigido.Vertice;
+
+public interface Iterator<T> {
     boolean hasNext();
-    Object getNext();
+    Vertice<T> getNext();
     void reset();
 }

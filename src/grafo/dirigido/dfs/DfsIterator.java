@@ -5,17 +5,24 @@ import grafo.dirigido.Grafo;
 import grafo.dirigido.VertexState;
 import grafo.dirigido.Vertice;
 import grafo.dirigido.abstrato.GrafoIterator;
+import grafo.dirigido.abstrato.Iterator;
 
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Stack;
 
-public class DfsIterator<T> extends GrafoIterator {
+public class DfsIterator<T> extends GrafoIterator implements Iterator {
+
+    public Stack<Vertice<T>> pilha;
 
     public DfsIterator(){
         super();
+        this.pilha = new Stack<>();
     }
 
     public DfsIterator(List <Vertice<T>> vertices , List <Aresta<T>> arestas){
         super(vertices, arestas);
+        this.pilha = new Stack<>();
     }
 
 
@@ -70,7 +77,6 @@ public class DfsIterator<T> extends GrafoIterator {
         grafo.addVertice( u.getCarga());
 
         uAdjacentes = u.getAdj();
-
         for(Aresta<T> arco: uAdjacentes){
             w = (Vertice<T>) arco.getDestino();
 
@@ -92,23 +98,42 @@ public class DfsIterator<T> extends GrafoIterator {
      * DEPENDENCIA: s� pode ser chamado a partir de DFS();
      * @param u - O vertice de busca.
      */
-    @SuppressWarnings("unchecked")
+
     private void runDFS(Vertice<T> u){
         Vertice<T> w = null;
         List<Aresta<T>> uAdjacentes = null;
+        if(!this.hasNext())
+            return;
 
         u.setStatus(VertexState.Visited);
         System.out.print("\t" + u.toString() + "\n");
 
         uAdjacentes = u.getAdj();
+        this.pilha.push(u);
+        for(int i=0; i < uAdjacentes.size(); i++ ){
+            w = this.getNext();
 
-        for(Aresta<T> arco: uAdjacentes){
-            w = (Vertice<T>) arco.getDestino();
             if( w.getStatus() == VertexState.Unvisited )
                 runDFS(w);
         }
-
+        this.posicaoAtual++;
         u.setStatus(VertexState.Finished);
     }
 
+    @Override
+    public boolean hasNext() {
+        return this.posicaoAtual < this.vertices.size();
+    }
+
+    @Override
+    public Vertice<T> getNext() {
+        return this.pilha.pop();
+    }
+
+    @Override
+    public void reset() {
+        this.vertices.clear();
+        this.arestas.clear();
+        this.posicaoAtual = 0;
+    }
 }
