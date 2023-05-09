@@ -305,7 +305,7 @@ public class Grafo<T> {
 	
 		while ( !q.isEmpty()){
 			Vertice<T> u = q.remove();
-			System.out.print("\t" + q.toString() + "\n");
+			System.out.print("\t you" + q.toString() + "\n");
 			
 			uAdjacentes = incidentes(u);
 			
@@ -316,7 +316,7 @@ public class Grafo<T> {
 					q.add(w);								
 				}
 				showMarked();
-				System.out.print("\t" + q.toString() + "\n");
+				System.out.print("\t aim" + q.toString() + "\n");
 			}
 			
 			u.setStatus(VertexState.Finished);

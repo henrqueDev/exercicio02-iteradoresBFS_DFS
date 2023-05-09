@@ -22,7 +22,7 @@ public class BfsIterator<T> extends GrafoIterator implements Iterator {
 
 
     public Queue<Vertice<T>> queue;
-
+    // public T source;
     public BfsIterator(){
         super();
     }
@@ -74,7 +74,22 @@ public class BfsIterator<T> extends GrafoIterator implements Iterator {
     @Override
      public Vertice<T> getNext(){
         // Vertice<T> u = q.remove();
-        return this.queue.remove();
+        List<Vertice<T>> uAdjacentes = null;
+        Vertice<T> removed = this.queue.remove();
+        System.out.print("\t you" + this.queue.toString() + "\n");
+        uAdjacentes = this.incidentes(removed);
+        for(Vertice<T> w : uAdjacentes){
+            if (w.getStatus() == VertexState.Unvisited) {
+                w.setStatus(VertexState.Visited);
+                this.queue.add(w);
+            }
+            this.showMarked();
+            System.out.print("\t aim" + this.queue.toString() + "\n");
+
+        }
+        this.posicaoAtual++;
+        removed.setStatus(VertexState.Finished);
+        return removed;
     }
     /*public void BFS(T source) {
         List<Vertice<T>> uAdjacentes = null;
@@ -122,7 +137,7 @@ public class BfsIterator<T> extends GrafoIterator implements Iterator {
 
     @Override
     public boolean hasNext() {
-        return this.posicaoAtual < this.vertices.size();
+        return !(this.queue.isEmpty());
     }
 
 

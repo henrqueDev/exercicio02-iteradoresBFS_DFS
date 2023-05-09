@@ -18,7 +18,7 @@ public class BfsService<T> {
 
     public void percorrerBFS(T source) {
         //Queue<Vertice<T>> q = new LinkedList<Vertice<T>>();
-        List<Vertice<T>> uAdjacentes = null;
+        // List<Vertice<T>> uAdjacentes = null;
 
         Vertice<T> v = this.iterador.getVertice(source);
 
@@ -27,28 +27,12 @@ public class BfsService<T> {
         // Marcando todos os n�s como NAO-VISITADOS
         this.iterador.setAllVerticesUnvisited();
 
-
         v.setStatus(VertexState.Visited);
         this.iterador.queue.add(v);
         this.iterador.showMarked();
 
         while (this.iterador.hasNext()) {
             Vertice<T> u = this.iterador.getNext();
-            System.out.print("\t" + this.iterador.queue.toString() + "\n");
-
-            uAdjacentes = this.iterador.incidentes(u);
-
-            for (Vertice<T> w : uAdjacentes) {
-
-                if (w.getStatus() == VertexState.Unvisited) {
-                    w.setStatus(VertexState.Visited);
-                    this.iterador.queue.add(w);
-                }
-                this.iterador.showMarked();
-                System.out.print("\t" + this.iterador.queue.toString() + "\n");
-            }
-            this.iterador.posicaoAtual++;
-            u.setStatus(VertexState.Finished);
         }
     }
 }

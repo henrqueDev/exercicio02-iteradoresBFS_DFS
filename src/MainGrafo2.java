@@ -70,8 +70,8 @@ public class MainGrafo2 {
 		
 		 } else if (Teste == 3) {
 			 // Testando algoritmos de percurso/travessia
-			 // Grafo<String> g = new Grafo<String>();
-			 BfsIterator<String> g = new BfsIterator<String>();
+			 Grafo<String> g = new Grafo<String>();
+			 BfsIterator<String> g1 = new BfsIterator<String>();
 			 g.addVertice("1");
 			 g.addVertice("2");
 			 g.addVertice("3");
@@ -87,10 +87,12 @@ public class MainGrafo2 {
 			 System.out.println(g.getVertices());
 			 BfsIterableCollection<String> collection = new BfsIterableCollection<String>(g.getVertices(), g.getArestas());
 			 BfsIterator<String> iterador = collection.createIterator();
-			// BfsService<String> service = new BfsService<String>(collection, iterador);
+			 BfsService<String> service = new BfsService<String>(collection, iterador);
 			 // g.BFS("6");
 			 // g.BFSDistance("5");
-			 //service.percorrerBFS("6");
+			 g.BFS("6");
+			 System.out.println("DIFERENCAAAAA");
+			 service.percorrerBFS("6");
 			 /*while(iterador.hasNext()){
 				 Vertice<String> proximo = iterador.getNext();
 				 System.out.println(proximo.getCarga());
@@ -98,8 +100,8 @@ public class MainGrafo2 {
 			 DfsIterableCollection<String> collectionDFS = new DfsIterableCollection<String>(g.getVertices(), g.getArestas());
 			 DfsIterator<String> iteradorDFS = collectionDFS.createIterator();
 			 System.out.println();
-			 DfsService<String> service = new DfsService<String>(collectionDFS, iteradorDFS);
-			 service.DFS("6");
+			 //DfsService<String> service = new DfsService<String>(collectionDFS, iteradorDFS);
+			 //service.DFS("6");
 			/*
 			 Grafo<String> g = new Grafo<String>();
 			 g.addVertice("1");
