@@ -38,19 +38,20 @@ public class DfsService<T> {
             return;
 
         // u.setStatus(VertexState.Visited);
-        System.out.print("\t" + u.toString() + "\n");
+        //System.out.print("\t" + u.toString() + "\n");
 
         uAdjacentes = u.getAdj();
-        //this.dfsIterator.pilha.push(u);
-        for(Aresta<T> arco: uAdjacentes){
+        this.dfsIterator.pilha.push(u);
+        if(this.dfsIterator.hasNext()){
+           this.dfsIterator.getNext();
+        }
+        /*for(Aresta<T> arco: uAdjacentes){
             this.dfsIterator.pilha.push(arco.getDestino());
             w = this.dfsIterator.getNext();
 
             if( w.getStatus() == VertexState.Unvisited )
                 runDFS(w);
-        }
-        this.dfsIterator.posicaoAtual++;
-        u.setStatus(VertexState.Finished);
+        }*/
     }
 
 }

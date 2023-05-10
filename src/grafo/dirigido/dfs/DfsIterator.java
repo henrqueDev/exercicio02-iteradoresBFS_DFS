@@ -127,7 +127,25 @@ public class DfsIterator<T> extends GrafoIterator implements Iterator {
 
     @Override
     public Vertice<T> getNext() {
-        return this.pilha.pop();
+        Vertice<T> w = null;
+        List<Aresta<T>> uAdjacentes = null;
+
+        Vertice<T> u = this.pilha.pop();
+        u.setStatus(VertexState.Visited);
+        System.out.print("\t" + u.toString() + "\n");
+
+        uAdjacentes = u.getAdj();
+
+        for(Aresta<T> arco: uAdjacentes){
+
+            w = arco.getDestino();
+            this.pilha.push(w);
+
+            if( w.getStatus() == VertexState.Unvisited )
+                this.getNext();
+        }
+        this.posicaoAtual++;
+        return u;
     }
 
     @Override
