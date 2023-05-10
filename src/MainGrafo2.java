@@ -87,7 +87,7 @@ public class MainGrafo2 {
 			 System.out.println(g.getVertices());
 			 BfsIterableCollection<String> collection = new BfsIterableCollection<String>(g.getVertices(), g.getArestas());
 			 BfsIterator<String> iterador = collection.createIterator();
-			// BfsService<String> service = new BfsService<String>(collection, iterador);
+			 BfsService<String> serviceBFS = new BfsService<String>(collection, iterador);
 			 // g.BFS("6");
 			 // g.BFSDistance("5");
 			 //service.percorrerBFS("6");
@@ -100,6 +100,7 @@ public class MainGrafo2 {
 			 System.out.println();
 			 DfsService<String> service = new DfsService<String>(collectionDFS, iteradorDFS);
 			 service.DFS("6");
+			 serviceBFS.percorrerBFS("6");
 			/*
 			 Grafo<String> g = new Grafo<String>();
 			 g.addVertice("1");

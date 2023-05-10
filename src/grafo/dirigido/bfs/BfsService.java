@@ -47,7 +47,6 @@ public class BfsService<T> {
                 this.iterador.showMarked();
                 System.out.print("\t" + this.iterador.queue.toString() + "\n");
             }
-            this.iterador.posicaoAtual++;
             u.setStatus(VertexState.Finished);
         }
     }

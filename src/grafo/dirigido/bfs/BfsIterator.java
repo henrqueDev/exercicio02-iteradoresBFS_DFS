@@ -116,13 +116,12 @@ public class BfsIterator<T> extends GrafoIterator implements Iterator {
     public void reset() {
         this.vertices.clear();
         this.arestas.clear();
-        this.posicaoAtual = 0;
         this.queue = new LinkedList<Vertice<T>>();
     }
 
     @Override
     public boolean hasNext() {
-        return this.posicaoAtual < this.vertices.size();
+        return (!this.queue.isEmpty());
     }
 
 

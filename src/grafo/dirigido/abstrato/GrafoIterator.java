@@ -17,7 +17,6 @@ public static final int INFINITY = 99999;
 public List<Vertice<T>> vertices;
 public List<Aresta<T>> arestas;
 
-public int posicaoAtual;
 
 public GrafoIterator(){
         this.vertices = new ArrayList<Vertice<T>>();
@@ -26,7 +25,6 @@ public GrafoIterator(){
 public GrafoIterator(List <Vertice<T>> vertices , List <Aresta<T>> arestas){
          this.vertices = vertices;
          this.arestas = arestas;
-         posicaoAtual = 0;
 }
 
 
@@ -256,9 +254,6 @@ public String toString() {
         /*@Override
         public abstract Vertice<T> getNext();*/
         /*@Override
-        public boolean hasNext() {
-                return this.posicaoAtual < this.vertices.size();
-        }
-
-        public abstract Vertice<T> getNext();*/
+        public abstract boolean hasNext();
+                */
 }

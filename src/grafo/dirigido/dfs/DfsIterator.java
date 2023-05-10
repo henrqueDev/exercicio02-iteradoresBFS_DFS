@@ -116,13 +116,12 @@ public class DfsIterator<T> extends GrafoIterator implements Iterator {
             if( w.getStatus() == VertexState.Unvisited )
                 runDFS(w);
         }
-        this.posicaoAtual++;
         u.setStatus(VertexState.Finished);
     }
 
     @Override
     public boolean hasNext() {
-        return this.posicaoAtual < this.vertices.size();
+        return (!this.pilha.isEmpty());
     }
 
     @Override
@@ -134,6 +133,5 @@ public class DfsIterator<T> extends GrafoIterator implements Iterator {
     public void reset() {
         this.vertices.clear();
         this.arestas.clear();
-        this.posicaoAtual = 0;
     }
 }

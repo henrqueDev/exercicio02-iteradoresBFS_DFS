@@ -34,14 +34,15 @@ public class DfsService<T> {
     private void runDFS(Vertice<T> u) {
         Vertice<T> w = null;
         List<Aresta<T>> uAdjacentes = null;
+
+        this.dfsIterator.pilha.push(u);
+
         if(!this.dfsIterator.hasNext())
             return;
-
-        // u.setStatus(VertexState.Visited);
+        u.setStatus(VertexState.Visited);
         System.out.print("\t" + u.toString() + "\n");
 
         uAdjacentes = u.getAdj();
-        //this.dfsIterator.pilha.push(u);
         for(Aresta<T> arco: uAdjacentes){
             this.dfsIterator.pilha.push(arco.getDestino());
             w = this.dfsIterator.getNext();
@@ -49,7 +50,6 @@ public class DfsService<T> {
             if( w.getStatus() == VertexState.Unvisited )
                 runDFS(w);
         }
-        this.dfsIterator.posicaoAtual++;
         u.setStatus(VertexState.Finished);
     }
 
