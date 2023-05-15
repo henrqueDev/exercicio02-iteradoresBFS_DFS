@@ -335,9 +335,6 @@ public String toString() {
         /*@Override
         public abstract Vertice<T> getNext();*/
         /*@Override
-        public boolean hasNext() {
-                return this.posicaoAtual < this.vertices.size();
-        }
-
-        public abstract Vertice<T> getNext();*/
+        public abstract boolean hasNext();
+                */
 }

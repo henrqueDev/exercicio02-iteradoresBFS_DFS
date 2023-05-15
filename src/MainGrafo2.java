@@ -7,7 +7,6 @@ import grafo.dirigido.dfs.DfsIterator;
 import model.Aluno;
 
 public class MainGrafo2 {
-
 	public static void main(String args[]) throws IllegalAccessException {
 		// Teste == 1: Testando apenas a criação de vertices com objetos Aluno, arestas e o grafo, isolados.
 		// Teste == 2: Testando o Generics com String. Testando o subgrafo

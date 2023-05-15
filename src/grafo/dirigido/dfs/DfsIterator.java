@@ -17,11 +17,6 @@ public class DfsIterator<T> implements Iterator {
     private Vertice<T> source;
 
 
-    public DfsIterator(){
-        super();
-        this.pilha = new Stack<>();
-    }
-
     public DfsIterator(Grafo<T> grafo, Vertice<T> source){
         this.grafo = grafo;
         this.source = source;
@@ -30,11 +25,10 @@ public class DfsIterator<T> implements Iterator {
         this.pilha.push(source);
     }
 
-
     @Override
     public boolean hasNext() {
         boolean isNotEmpty = !(this.pilha.isEmpty());
-        if(!isNotEmpty){
+        if (!isNotEmpty) {
             this.reset();
         }
         return isNotEmpty;

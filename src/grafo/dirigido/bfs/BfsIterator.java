@@ -25,7 +25,6 @@ public class BfsIterator<T> implements Iterator {
 
     private Vertice<T> source;
 
-    public BfsIterator(){}
 
     public BfsIterator(Grafo<T> grafo, Vertice<T> source) {
         this.grafo = grafo;
@@ -55,10 +54,8 @@ public class BfsIterator<T> implements Iterator {
 
     @Override
     public void reset() {
-
         this.queue = new LinkedList<Vertice<T>>();
         this.grafo.setAllVerticesUnvisited();
-
     }
 
     @Override
