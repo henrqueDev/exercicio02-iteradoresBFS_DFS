@@ -19,11 +19,11 @@ public class BfsIterator<T> implements Iterator {
      */
 
 
-    public Queue<Vertice<T>> queue;
+    private Queue<Vertice<T>> queue;
     // public T source;
-    public Grafo<T> grafo;
+    private Grafo<T> grafo;
 
-    public Vertice<T> source;
+    private Vertice<T> source;
 
     public BfsIterator(){}
 
@@ -34,45 +34,6 @@ public class BfsIterator<T> implements Iterator {
         this.grafo.setAllVerticesUnvisited();
         this.queue.add(this.source);
     }
-
-    /*public void BFSDistance( T source ){
-
-        Vertice<T> v = getVertice(source);
-        if( !exists( v ) )
-            return;
-
-        // Marcando todos os n�s como NAO-VISITADOS
-        this.setAllVerticesUnvisited();
-
-        Queue<Vertice<T>> q = new LinkedList<Vertice<T>>();
-
-        v.setStatus(VertexState.Visited);
-        v.setDistance(0);
-        q.add(v);
-
-        while ( !q.isEmpty()){
-            Vertice<T> u = q.remove();
-
-            for(Aresta arco: u.getAdj() ) {
-                @SuppressWarnings("unchecked")
-                Vertice<T> w = (Vertice<T>) arco.getDestino();
-
-                //hasNext()
-                if( w.getStatus() == VertexState.Unvisited ) {
-                    w.setStatus(VertexState.Visited);
-                    q.add(w);
-                    w.setDistance(u.getDistance() + 1);
-                }
-            }
-
-            u.setStatus(VertexState.Finished);
-        }
-
-        System.out.println("Vertice (s)= " + source + "\n");
-        this.checkDistanceIsInfinity();
-
-
-    }*/
 
 
     @Override

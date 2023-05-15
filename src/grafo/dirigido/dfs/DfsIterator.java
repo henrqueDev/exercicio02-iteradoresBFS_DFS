@@ -11,10 +11,10 @@ import java.util.Stack;
 
 public class DfsIterator<T> implements Iterator {
 
-    public Grafo<T> grafo;
-    public Stack<Vertice<T>> pilha;
+    private Grafo<T> grafo;
+    private Stack<Vertice<T>> pilha;
 
-    public Vertice<T> source;
+    private Vertice<T> source;
 
 
     public DfsIterator(){

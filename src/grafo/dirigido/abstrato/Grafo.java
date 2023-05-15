@@ -18,10 +18,9 @@ public static final int INFINITY = 99999;
 /**
  * Colecao de vertices do grafo
  */
-public List<Vertice<T>> vertices;
-public List<Aresta<T>> arestas;
+private List<Vertice<T>> vertices;
+private List<Aresta<T>> arestas;
 
-public int posicaoAtual;
 
 public Grafo(){
         this.vertices = new ArrayList<Vertice<T>>();
@@ -30,7 +29,6 @@ public Grafo(){
 public Grafo(List <Vertice<T>> vertices , List <Aresta<T>> arestas){
          this.vertices = vertices;
          this.arestas = arestas;
-         posicaoAtual = 0;
 }
 
 public BfsIterator<T> createBfsIterator(T source) throws IllegalAccessException {
