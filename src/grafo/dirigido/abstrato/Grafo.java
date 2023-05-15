@@ -7,9 +7,11 @@ import grafo.dirigido.bfs.BfsIterator;
 import grafo.dirigido.dfs.DfsIterator;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 
-public class GrafoIterator<T> {
+public class Grafo<T> {
 
 public static final int INFINITY = 99999;
 
@@ -21,11 +23,11 @@ public List<Aresta<T>> arestas;
 
 public int posicaoAtual;
 
-public GrafoIterator(){
+public Grafo(){
         this.vertices = new ArrayList<Vertice<T>>();
         this.arestas = new ArrayList<Aresta<T>>();
 }
-public GrafoIterator(List <Vertice<T>> vertices , List <Aresta<T>> arestas){
+public Grafo(List <Vertice<T>> vertices , List <Aresta<T>> arestas){
          this.vertices = vertices;
          this.arestas = arestas;
          posicaoAtual = 0;
@@ -261,6 +263,72 @@ public String toString() {
                         if (vertices.get(i).getStatus() == VertexState.Visited)
                         System.out.print(vertices.get(i).getCarga());
                 }
+        }
+
+        public int getDistance(Vertice<T> start, Vertice<T> end)
+        {
+                List<Aresta<T>> arcos = start.getAdj();
+
+                for( Aresta<T> a : arcos){
+                        if( a.getDestino().getCarga().equals( end.getCarga()) )
+                                return a.getPeso();
+
+                }
+                return 0 ;
+        }
+
+        @SuppressWarnings("unchecked")
+        public Object clone() {
+//	        try {
+//	            return (Grafo)super.clone();
+//	        }
+//	        catch (CloneNotSupportedException e) {
+//	            return null;
+//	        }
+
+                try {
+                        Grafo<T> clone = (Grafo<T>)super.clone();
+
+                        //Clona o resto.
+                        clone.arestas.addAll(arestas);
+                        clone.vertices.addAll(vertices);
+                        return clone;
+                } catch (CloneNotSupportedException e) {
+
+                        e.printStackTrace();
+                        return null;
+                } // Clona os tipos primitivos;
+
+        }
+
+
+
+
+        @SuppressWarnings("unchecked")
+        public Grafo<T> getSubGrafo(T carga){
+                Vertice<T> source,target, element;
+
+                if( (source=getVertice(carga))==null )
+                        return null;
+                Grafo<T> grafo = new Grafo<T>();
+
+                Queue<Vertice<T>> fila = new LinkedList<Vertice<T>>();
+                fila.add(source);
+
+
+                while( !fila.isEmpty() ) {
+                        element = fila.poll();
+                        source = grafo.addVertice( element.getCarga());
+
+                        for(Aresta edge: element.getAdj()){
+                                target = grafo.addVertice( (T) edge.getDestino().getCarga());
+                                grafo.addAresta(source, target, edge.getPeso());
+                                fila.add((Vertice<T>) edge.getDestino());
+                        }
+
+                }
+
+                return grafo;
         }
 
         /*@Override

@@ -1,12 +1,9 @@
 import grafo.dirigido.Aresta;
-import grafo.dirigido.Grafo;
 //import grafo.dirigido.PersistenciaDeGrafo;
 import grafo.dirigido.Vertice;
-import grafo.dirigido.abstrato.GrafoIterator;
+import grafo.dirigido.abstrato.Grafo;
 import grafo.dirigido.bfs.BfsIterator;
-import grafo.dirigido.bfs.BfsService;
 import grafo.dirigido.dfs.DfsIterator;
-import grafo.dirigido.dfs.DfsService;
 import model.Aluno;
 
 public class MainGrafo2 {
@@ -65,8 +62,8 @@ public class MainGrafo2 {
 
 		} else if (Teste == 3) {
 			// Testando algoritmos de percurso/travessia
-			GrafoIterator<String> g = new GrafoIterator<String>();
-			GrafoIterator<String> g1 = new GrafoIterator<String>();
+			Grafo<String> g = new Grafo<String>();
+			//GrafoIterator<String> g1 = new GrafoIterator<String>();
 			g.addVertice("1");
 			g.addVertice("2");
 			g.addVertice("3");
@@ -81,12 +78,18 @@ public class MainGrafo2 {
 			g.addAresta("1", "2", 1);
 			System.out.println(g.getVertices());
 			DfsIterator<String> iterador = g.createDfsIterator("6");
-			//BfsIterator<String> iterador1 = g1.createBfsIterator("6");
+			BfsIterator<String> iterador1 = g.createBfsIterator("6");
 			while(iterador.hasNext()){
 				Vertice<String> v = iterador.getNext();
 				System.out.println(v);
 			}
+			iterador.reset();
+			System.out.println("-------------");
 
+			while(iterador1.hasNext()){
+				Vertice<String> v = iterador1.getNext();
+				System.out.println(v);
+			}
 		}
 
 

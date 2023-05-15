@@ -1,13 +1,10 @@
 package grafo.dirigido.bfs;
 
-import grafo.dirigido.Aresta;
-import grafo.dirigido.Grafo;
-import grafo.dirigido.abstrato.GrafoIterator;
+import grafo.dirigido.abstrato.Grafo;
 import grafo.dirigido.VertexState;
 import grafo.dirigido.Vertice;
 import grafo.dirigido.abstrato.Iterator;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
@@ -24,13 +21,13 @@ public class BfsIterator<T> implements Iterator {
 
     public Queue<Vertice<T>> queue;
     // public T source;
-    public GrafoIterator<T> grafo;
+    public Grafo<T> grafo;
 
     public Vertice<T> source;
 
     public BfsIterator(){}
 
-    public BfsIterator(GrafoIterator<T> grafo,  Vertice<T> source) {
+    public BfsIterator(Grafo<T> grafo, Vertice<T> source) {
         this.grafo = grafo;
         this.source = source;
         this.queue = new LinkedList<Vertice<T>>();
@@ -80,10 +77,8 @@ public class BfsIterator<T> implements Iterator {
 
     @Override
      public Vertice<T> getNext(){
-        // Vertice<T> u = q.remove();
         List<Vertice<T>> uAdjacentes = null;
         Vertice<T> removed = this.queue.remove();
-        //System.out.print("\t you" + this.queue.toString() + "\n");
         removed.setStatus(VertexState.Visited);
         uAdjacentes = this.grafo.incidentes(removed);
         for(Vertice<T> w : uAdjacentes){
@@ -91,52 +86,18 @@ public class BfsIterator<T> implements Iterator {
                 w.setStatus(VertexState.Visited);
                 this.queue.add(w);
             }
-            //this.showMarked();
-            //System.out.print("\t aim" + this.queue.toString() + "\n");
 
         }
         removed.setStatus(VertexState.Finished);
         return removed;
     }
-    /*public void BFS(T source) {
-        List<Vertice<T>> uAdjacentes = null;
-
-        Vertice<T> v = this.getVertice(source);
-
-        if (!this.exists(v))
-            return;
-        // Marcando todos os n�s como NAO-VISITADOS
-        this.setAllVerticesUnvisited();
-
-
-        v.setStatus(VertexState.Visited);
-        this.queue.add(v);
-        this.showMarked();
-
-        while (this.hasNext()) {
-            Vertice<T> u = this.getNext();
-            System.out.print("\t" + this.queue.toString() + "\n");
-
-            uAdjacentes = this.incidentes(u);
-
-            for (Vertice<T> w : uAdjacentes) {
-
-                if (w.getStatus() == VertexState.Unvisited) {
-                    w.setStatus(VertexState.Visited);
-                    this.queue.add(w);
-                }
-                this.showMarked();
-                System.out.print("\t" + this.queue.toString() + "\n");
-            }
-            this.posicaoAtual++;
-            u.setStatus(VertexState.Finished);
-        }
-
-    }*/
 
     @Override
     public void reset() {
+
         this.queue = new LinkedList<Vertice<T>>();
+        this.grafo.setAllVerticesUnvisited();
+
     }
 
     @Override
