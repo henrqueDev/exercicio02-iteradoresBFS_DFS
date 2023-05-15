@@ -33,7 +33,11 @@ public class DfsIterator<T> implements Iterator {
 
     @Override
     public boolean hasNext() {
-        return (!this.pilha.isEmpty());
+        boolean isNotEmpty = !(this.pilha.isEmpty());
+        if(!isNotEmpty){
+            this.reset();
+        }
+        return isNotEmpty;
     }
 
     @Override

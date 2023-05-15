@@ -83,7 +83,6 @@ public class MainGrafo2 {
 				Vertice<String> v = iterador.getNext();
 				System.out.println(v);
 			}
-			iterador.reset();
 			System.out.println("-------------");
 
 			while(iterador1.hasNext()){

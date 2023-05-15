@@ -102,7 +102,11 @@ public class BfsIterator<T> implements Iterator {
 
     @Override
     public boolean hasNext() {
-        return !(this.queue.isEmpty());
+        boolean isNotEmpty = !(this.queue.isEmpty());
+        if(!isNotEmpty){
+            this.reset();
+        }
+        return isNotEmpty;
     }
 
 
