@@ -301,11 +301,11 @@ public class Grafo<T> {
 		
 		v.setStatus(VertexState.Visited);
 		q.add(v);
-		showMarked();
+		//showMarked();
 	
 		while ( !q.isEmpty()){
 			Vertice<T> u = q.remove();
-			System.out.print("\t you" + q.toString() + "\n");
+			System.out.print("\t you" + u.getCarga() + "\n");
 			
 			uAdjacentes = incidentes(u);
 			
@@ -315,8 +315,8 @@ public class Grafo<T> {
 					w.setStatus(VertexState.Visited);
 					q.add(w);								
 				}
-				showMarked();
-				System.out.print("\t aim" + q.toString() + "\n");
+				//showMarked();
+				//System.out.print("\t aim" + q.toString() + "\n");
 			}
 			
 			u.setStatus(VertexState.Finished);

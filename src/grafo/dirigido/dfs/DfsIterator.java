@@ -9,20 +9,30 @@ import grafo.dirigido.abstrato.Iterator;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Stack;
 
 public class DfsIterator<T> extends GrafoIterator implements Iterator {
 
+    public GrafoIterator<T> grafo;
     public Stack<Vertice<T>> pilha;
+
+    public Vertice<T> source;
+
+    public int posicaoAtual;
 
     public DfsIterator(){
         super();
         this.pilha = new Stack<>();
     }
 
-    public DfsIterator(List <Vertice<T>> vertices , List <Aresta<T>> arestas){
-        super(vertices, arestas);
+    public DfsIterator(GrafoIterator<T> grafo,  Vertice<T> source){
+        this.grafo = grafo;
+        this.source = source;
         this.pilha = new Stack<>();
+        this.grafo.setAllVerticesUnvisited();
+        this.pilha.push(source);
+        this.posicaoAtual = 0;
     }
 
 
@@ -122,7 +132,7 @@ public class DfsIterator<T> extends GrafoIterator implements Iterator {
 
     @Override
     public boolean hasNext() {
-        return this.posicaoAtual < this.vertices.size();
+        return (!this.pilha.isEmpty());
     }
 
     @Override
@@ -131,27 +141,28 @@ public class DfsIterator<T> extends GrafoIterator implements Iterator {
         List<Aresta<T>> uAdjacentes = null;
 
         Vertice<T> u = this.pilha.pop();
+        //this.grafo.addVertice(u.getCarga());
         u.setStatus(VertexState.Visited);
-        System.out.print("\t" + u.toString() + "\n");
+        //System.out.print("\t" + u.toString() + "\n");
 
         uAdjacentes = u.getAdj();
 
         for(Aresta<T> arco: uAdjacentes){
 
             w = arco.getDestino();
-            this.pilha.push(w);
-
-            if( w.getStatus() == VertexState.Unvisited )
-                this.getNext();
+            if( w.getStatus() == VertexState.Unvisited && !this.pilha.contains(w) ) {
+                //System.out.print("\t" + w.toString() + "\n");
+                this.pilha.push(w);
+            }
         }
-        this.posicaoAtual++;
+
+
         return u;
     }
 
     @Override
     public void reset() {
-        this.vertices.clear();
-        this.arestas.clear();
+        this.pilha.clear();
         this.posicaoAtual = 0;
     }
 }

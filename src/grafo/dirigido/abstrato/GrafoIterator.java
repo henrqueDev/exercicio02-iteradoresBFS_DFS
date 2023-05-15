@@ -3,11 +3,13 @@ package grafo.dirigido.abstrato;
 import grafo.dirigido.Aresta;
 import grafo.dirigido.VertexState;
 import grafo.dirigido.Vertice;
+import grafo.dirigido.bfs.BfsIterator;
+import grafo.dirigido.dfs.DfsIterator;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class GrafoIterator<T> {
+public class GrafoIterator<T> {
 
 public static final int INFINITY = 99999;
 
@@ -29,7 +31,19 @@ public GrafoIterator(List <Vertice<T>> vertices , List <Aresta<T>> arestas){
          posicaoAtual = 0;
 }
 
+public BfsIterator<T> createBfsIterator(T source) throws IllegalAccessException {
+        Vertice<T> v = this.getVertice(source);
+        if( !exists( v ) )
+                throw new IllegalAccessException();
+        return new BfsIterator<>(this, v);
+}
 
+public DfsIterator<T> createDfsIterator(T source) throws IllegalAccessException {
+                Vertice<T> v = this.getVertice(source);
+                if( !exists( v ) )
+                        throw new IllegalAccessException();
+                return new DfsIterator<>(this, v);
+        }
 
         /**
  * Obtem um List de Vertices do grafo
@@ -196,9 +210,9 @@ public List<Aresta<T>> getArestas() {
  *
  * @return true - se o grafo est� vazio, false caso contr�rio.
  */
-public boolean isEmpty() {
-        return vertices.size() == 0;
-        }
+//public boolean isEmpty() {
+//        return vertices.size() == 0;
+//        }
 
 /**
  * Esvazia o grafo.
@@ -239,7 +253,6 @@ public String toString() {
         public void setAllVerticesUnvisited(){
                 for (int i = 0; i < this.vertices.size(); i++) {
                         this.vertices.get(i).setStatus(VertexState.Unvisited);
-                        vertices.get(i).setDistance(INFINITY); // valor muito alto
                 }
         }
 

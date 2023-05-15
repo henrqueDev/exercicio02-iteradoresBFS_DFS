@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Queue;
 
 public class BfsService<T> {
-    public BfsIterableCollection<T> collection;
+    /*public BfsIterableCollection<T> collection;
     public BfsIterator<T> iterador;
 
     public BfsService(BfsIterableCollection<T> collection, BfsIterator<T> iterador) {
@@ -29,11 +29,12 @@ public class BfsService<T> {
 
         v.setStatus(VertexState.Visited);
         this.iterador.queue.add(v);
-        this.iterador.showMarked();
+        //this.iterador.showMarked();
 
         while (this.iterador.hasNext()) {
             Vertice<T> u = this.iterador.getNext();
+            System.out.println(u);
         }
-    }
+    }*/
 }
 

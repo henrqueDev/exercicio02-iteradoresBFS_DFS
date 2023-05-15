@@ -1,6 +1,7 @@
 package grafo.dirigido.bfs;
 
 import grafo.dirigido.Aresta;
+import grafo.dirigido.Grafo;
 import grafo.dirigido.abstrato.GrafoIterator;
 import grafo.dirigido.VertexState;
 import grafo.dirigido.Vertice;
@@ -11,7 +12,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
-public class BfsIterator<T> extends GrafoIterator implements Iterator {
+public class BfsIterator<T> implements Iterator {
 
     /**
      * Implementacao do algoritmo BFS (Busca em Profundidade)
@@ -23,16 +24,21 @@ public class BfsIterator<T> extends GrafoIterator implements Iterator {
 
     public Queue<Vertice<T>> queue;
     // public T source;
-    public BfsIterator(){
-        super();
-    }
+    public GrafoIterator<T> grafo;
 
-    public BfsIterator(List <Vertice<T>> vertices , List <Aresta<T>> arestas){
-        super(vertices, arestas);
+    public Vertice<T> source;
+
+    public BfsIterator(){}
+
+    public BfsIterator(GrafoIterator<T> grafo,  Vertice<T> source) {
+        this.grafo = grafo;
+        this.source = source;
         this.queue = new LinkedList<Vertice<T>>();
+        this.grafo.setAllVerticesUnvisited();
+        this.queue.add(this.source);
     }
 
-    public void BFSDistance( T source ){
+    /*public void BFSDistance( T source ){
 
         Vertice<T> v = getVertice(source);
         if( !exists( v ) )
@@ -69,25 +75,26 @@ public class BfsIterator<T> extends GrafoIterator implements Iterator {
         this.checkDistanceIsInfinity();
 
 
-    }
+    }*/
+
 
     @Override
      public Vertice<T> getNext(){
         // Vertice<T> u = q.remove();
         List<Vertice<T>> uAdjacentes = null;
         Vertice<T> removed = this.queue.remove();
-        System.out.print("\t you" + this.queue.toString() + "\n");
-        uAdjacentes = this.incidentes(removed);
+        //System.out.print("\t you" + this.queue.toString() + "\n");
+        removed.setStatus(VertexState.Visited);
+        uAdjacentes = this.grafo.incidentes(removed);
         for(Vertice<T> w : uAdjacentes){
             if (w.getStatus() == VertexState.Unvisited) {
                 w.setStatus(VertexState.Visited);
                 this.queue.add(w);
             }
-            this.showMarked();
-            System.out.print("\t aim" + this.queue.toString() + "\n");
+            //this.showMarked();
+            //System.out.print("\t aim" + this.queue.toString() + "\n");
 
         }
-        this.posicaoAtual++;
         removed.setStatus(VertexState.Finished);
         return removed;
     }
@@ -129,9 +136,6 @@ public class BfsIterator<T> extends GrafoIterator implements Iterator {
 
     @Override
     public void reset() {
-        this.vertices.clear();
-        this.arestas.clear();
-        this.posicaoAtual = 0;
         this.queue = new LinkedList<Vertice<T>>();
     }
 

@@ -8,7 +8,7 @@ import grafo.dirigido.Vertice;
 import java.util.List;
 
 public class DfsService<T> {
-    public DfsIterableCollection<T> collection;
+    /*public DfsIterableCollection<T> collection;
     public DfsIterator<T> dfsIterator;
 
     public DfsService(DfsIterableCollection<T> collection, DfsIterator<T> dfsIterator) {
@@ -51,7 +51,7 @@ public class DfsService<T> {
 
             if( w.getStatus() == VertexState.Unvisited )
                 runDFS(w);
-        }*/
+        }
     }
-
+    */
 }
