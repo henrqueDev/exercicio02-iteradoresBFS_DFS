@@ -1,0 +1,109 @@
+@startuml
+
+!theme plain
+top to bottom direction
+skinparam linetype ortho
+
+class Aluno {
+  + Aluno(String, int): 
+  + toString(): String
+}
+class Aresta<T> {
+  + Aresta(Vertice<T>, Vertice<T>, int): 
+  - origem: Vertice<T>
+  - peso: int
+  - destino: Vertice<T>
+  + toString(): String
+   destino: Vertice<T>
+   peso: int
+   origem: Vertice<T>
+}
+class BfsIterator<T> {
+  + BfsIterator(): 
+  + BfsIterator(Grafo<T>, Vertice<T>): 
+  + reset(): void
+  + hasNext(): boolean
+   next: Vertice<T>
+}
+class DfsIterator<T> {
+  + DfsIterator(): 
+  + DfsIterator(Grafo<T>, Vertice<T>): 
+  + reset(): void
+  + hasNext(): boolean
+   next: Vertice<T>
+}
+class Grafo<T> {
+  + Grafo(List<Vertice<T>>, List<Aresta<T>>): 
+  + Grafo(): 
+  - vertices: List<Vertice<T>>
+  - arestas: List<Aresta<T>>
+  + addVertice(T): Vertice<T>
+  + getVertice(T): Vertice<T>
+  + createBfsIterator(T): BfsIterator<T>
+  + toString(): String
+  + getAresta(Vertice<T>, Vertice<T>): Aresta<T>
+  + exists(Vertice<T>): boolean
+  + clone(): Object
+  + getDistance(Vertice<T>, Vertice<T>): int
+  + addAresta(Vertice<T>, Vertice<T>, int): Aresta<T>
+  + createDfsIterator(T): DfsIterator<T>
+  + setAllVerticesUnvisited(): void
+  + getNumIncidentes(Vertice<T>): int
+  + checkDistanceIsInfinity(): void
+  + addAresta(T, T, int): Aresta<T>
+  + getSubGrafo(T): Grafo<T>
+  + incidentes(Vertice<T>): List<Vertice<T>>
+  + showMarked(): void
+   vertices: List<Vertice<T>>
+   arestas: List<Aresta<T>>
+}
+interface Iterator<T> << interface >> {
+  + reset(): void
+  + hasNext(): boolean
+   next: Vertice<T>
+}
+class MainGrafo2 {
+  + MainGrafo2(): 
+  + main(String[]): void
+}
+enum VertexState << enumeration >> {
+  + VertexState(): 
+  + valueOf(String): VertexState
+  + values(): VertexState[]
+}
+class Vertice<T> {
+  + Vertice(T): 
+  - distance: int
+  - adj: List<Aresta<T>>
+  - carga: T
+  - status: VertexState
+  + addAdj(Aresta<T>): void
+  + equals(Vertice<T>): boolean
+  + equals(Object): boolean
+  + toString(): String
+   carga: T
+   status: VertexState
+   adj: List<Aresta<T>>
+   distance: int
+}
+
+Aresta      "1" *-[#595959,plain]-> "origem\n1" Vertice     
+BfsIterator "1" *-[#595959,plain]-> "grafo\n1" Grafo       
+BfsIterator  -[#008200,dashed]-^  Iterator    
+BfsIterator "1" *-[#595959,plain]-> "queue\n*" Vertice     
+DfsIterator "1" *-[#595959,plain]-> "grafo\n1" Grafo       
+DfsIterator  -[#008200,dashed]-^  Iterator    
+DfsIterator "1" *-[#595959,plain]-> "source\n1" Vertice     
+Grafo        -[#595959,dashed]->  Aresta      : "«create»"
+Grafo       "1" *-[#595959,plain]-> "arestas\n*" Aresta      
+Grafo        -[#595959,dashed]->  BfsIterator : "«create»"
+Grafo        -[#595959,dashed]->  DfsIterator : "«create»"
+Grafo        -[#595959,dashed]->  Vertice     : "«create»"
+Grafo       "1" *-[#595959,plain]-> "vertices\n*" Vertice     
+MainGrafo2   -[#595959,dashed]->  Aluno       : "«create»"
+MainGrafo2   -[#595959,dashed]->  Aresta      : "«create»"
+MainGrafo2   -[#595959,dashed]->  Grafo       : "«create»"
+MainGrafo2   -[#595959,dashed]->  Vertice     : "«create»"
+Vertice     "1" *-[#595959,plain]-> "adj\n*" Aresta      
+Vertice     "1" *-[#595959,plain]-> "status\n1" VertexState 
+@enduml

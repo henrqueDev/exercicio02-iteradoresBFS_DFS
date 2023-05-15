@@ -3,31 +3,47 @@ package grafo.dirigido.abstrato;
 import grafo.dirigido.Aresta;
 import grafo.dirigido.VertexState;
 import grafo.dirigido.Vertice;
+import grafo.dirigido.bfs.BfsIterator;
+import grafo.dirigido.dfs.DfsIterator;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 
-public abstract class GrafoIterator<T> {
+public class Grafo<T> {
 
 public static final int INFINITY = 99999;
 
 /**
  * Colecao de vertices do grafo
  */
-public List<Vertice<T>> vertices;
-public List<Aresta<T>> arestas;
+private List<Vertice<T>> vertices;
+private List<Aresta<T>> arestas;
 
 
-public GrafoIterator(){
+public Grafo(){
         this.vertices = new ArrayList<Vertice<T>>();
         this.arestas = new ArrayList<Aresta<T>>();
 }
-public GrafoIterator(List <Vertice<T>> vertices , List <Aresta<T>> arestas){
+public Grafo(List <Vertice<T>> vertices , List <Aresta<T>> arestas){
          this.vertices = vertices;
          this.arestas = arestas;
 }
 
+public BfsIterator<T> createBfsIterator(T source) throws IllegalAccessException {
+        Vertice<T> v = this.getVertice(source);
+        if( !exists( v ) )
+                throw new IllegalAccessException();
+        return new BfsIterator<>(this, v);
+}
 
+public DfsIterator<T> createDfsIterator(T source) throws IllegalAccessException {
+                Vertice<T> v = this.getVertice(source);
+                if( !exists( v ) )
+                        throw new IllegalAccessException();
+                return new DfsIterator<>(this, v);
+        }
 
         /**
  * Obtem um List de Vertices do grafo
@@ -194,9 +210,9 @@ public List<Aresta<T>> getArestas() {
  *
  * @return true - se o grafo est� vazio, false caso contr�rio.
  */
-public boolean isEmpty() {
-        return vertices.size() == 0;
-        }
+//public boolean isEmpty() {
+//        return vertices.size() == 0;
+//        }
 
 /**
  * Esvazia o grafo.
@@ -237,7 +253,6 @@ public String toString() {
         public void setAllVerticesUnvisited(){
                 for (int i = 0; i < this.vertices.size(); i++) {
                         this.vertices.get(i).setStatus(VertexState.Unvisited);
-                        vertices.get(i).setDistance(INFINITY); // valor muito alto
                 }
         }
 
@@ -246,6 +261,72 @@ public String toString() {
                         if (vertices.get(i).getStatus() == VertexState.Visited)
                         System.out.print(vertices.get(i).getCarga());
                 }
+        }
+
+        public int getDistance(Vertice<T> start, Vertice<T> end)
+        {
+                List<Aresta<T>> arcos = start.getAdj();
+
+                for( Aresta<T> a : arcos){
+                        if( a.getDestino().getCarga().equals( end.getCarga()) )
+                                return a.getPeso();
+
+                }
+                return 0 ;
+        }
+
+        @SuppressWarnings("unchecked")
+        public Object clone() {
+//	        try {
+//	            return (Grafo)super.clone();
+//	        }
+//	        catch (CloneNotSupportedException e) {
+//	            return null;
+//	        }
+
+                try {
+                        Grafo<T> clone = (Grafo<T>)super.clone();
+
+                        //Clona o resto.
+                        clone.arestas.addAll(arestas);
+                        clone.vertices.addAll(vertices);
+                        return clone;
+                } catch (CloneNotSupportedException e) {
+
+                        e.printStackTrace();
+                        return null;
+                } // Clona os tipos primitivos;
+
+        }
+
+
+
+
+        @SuppressWarnings("unchecked")
+        public Grafo<T> getSubGrafo(T carga){
+                Vertice<T> source,target, element;
+
+                if( (source=getVertice(carga))==null )
+                        return null;
+                Grafo<T> grafo = new Grafo<T>();
+
+                Queue<Vertice<T>> fila = new LinkedList<Vertice<T>>();
+                fila.add(source);
+
+
+                while( !fila.isEmpty() ) {
+                        element = fila.poll();
+                        source = grafo.addVertice( element.getCarga());
+
+                        for(Aresta edge: element.getAdj()){
+                                target = grafo.addVertice( (T) edge.getDestino().getCarga());
+                                grafo.addAresta(source, target, edge.getPeso());
+                                fila.add((Vertice<T>) edge.getDestino());
+                        }
+
+                }
+
+                return grafo;
         }
 
         /*@Override
